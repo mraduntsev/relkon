@@ -1,1 +1,11 @@
+.zed
+.idea
+.vscode
 /target
+dist
+
+Cargo.lock
+rustfmt.toml
+.justfile
+backlog/
+cargo_check_output.txt

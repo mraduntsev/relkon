@@ -3,4 +3,43 @@ name = "relkon"
 version = "0.1.0"
 edition = "2024"
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
+console_error_panic_hook = "0.1"
+gloo-storage = "0.3"
+gloo-timers = "0.3"
+js-sys = "0.3"
+leptos = { version = "0.8", features = ["csr"] }
+wasm-bindgen = "=0.2.126"
+send_wrapper = "0.6.0"
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "CssStyleDeclaration",
+  "Document",
+  "DomRect",
+  "Element",
+  "Event",
+  "EventTarget",
+  "HtmlElement",
+  "IntersectionObserver",
+  "IntersectionObserverEntry",
+  "IntersectionObserverInit",
+  "Location",
+  "MediaQueryList",
+  "MediaQueryListEvent",
+  "MouseEvent",
+  "Node",
+  "NodeList",
+  "Storage",
+  "Window",
+]
+
+[profile.release]
+opt-level = "z"
+# lto = true
+panic = "abort"
+codegen-units = 1

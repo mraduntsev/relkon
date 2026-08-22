@@ -1,0 +1,53 @@
+pub struct Project {
+    pub number: &'static str,
+    pub year: &'static str,
+    pub title: &'static str,
+    pub src: &'static str,
+    pub description: &'static str,
+    pub features: &'static [&'static str],
+    pub chips: &'static [&'static str],
+    pub sheet_number: &'static str,
+}
+
+pub const PROJECTS: &[Project] = &[
+    Project {
+        number: "Шифр ПР-2025-07",
+        year: "2025",
+        title: "Логистический центр «Восток»",
+        src: "./images/1.webp",
+        description: "Стальной каркас, пролёты 24 м, бескрановое исполнение. Фахверк, связи, прогоны.",
+        features: &["1 240 т стали", "8 400 м²"],
+        chips: &["км", "кмд"],
+        sheet_number: "л. 12",
+    },
+    Project {
+        number: "Шифр ПР-2024-11",
+        year: "2024",
+        title: "Арена «Северный зал»",
+        src: "./images/2.webp",
+        description: "Фермы покрытия пролётом 36 м, укрупнение в кондукторе, монтаж без лесов.",
+        features: &["620 т стали", "5 100 м²"],
+        chips: &["км"],
+        sheet_number: "л. 34",
+    },
+    Project {
+        number: "Шифр ПР-2024-03",
+        year: "2024",
+        title: "ЖК «Меридиан», лит. 3",
+        src: "./images/3.webp",
+        description: "Монолитный каркас 14 этажей: колонны, плиты, диафрагмы, ведомости арматуры.",
+        features: &["3 900 м³ бетона", "14 эт."],
+        chips: &["кж"],
+        sheet_number: "л. 56",
+    },
+    Project {
+        number: "Шифр ПР-2026-01",
+        year: "2025",
+        title: "Деталировка «СтальПром»",
+        src: "./images/4.webp",
+        description: "Пакет КМД для завода: сборочные, карты раскроя, NC-файлы, ведомости метизов.",
+        features: &["3 400 листов", "1 240 т"],
+        chips: &["кмд"],
+        sheet_number: "л. 3 400",
+    },
+];

@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.chip {
+    @apply inline-flex items-center gap-1.5 border border-steel-500/40 dark:border-steel-500/40 px-2.5 py-1 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.14em] text-steel-600 dark:text-steel-300;
+}
+
+.field {
+    @apply w-full border border-steel-500/50 dark:border-steel-600/60 bg-white dark:bg-ink-800 px-4 py-3 text-sm text-[#10161F] dark:text-steel-200 outline-none transition placeholder:text-steel-500/70 focus:border-accent;
+}
+
+.sec-label {
+    @apply font-mono text-[11px] md:text-xs uppercase tracking-[0.32em] text-accent flex items-center gap-3;
+}
+
+
+@layer base {
+    :root {
+        --grid: rgba(23, 37, 84, .10);
+        --grid-strong: rgba(23, 37, 84, .18);
+    }
+
+    .dark {
+        --grid: rgba(148, 163, 184, .07);
+        --grid-strong: rgba(148, 163, 184, .14);
+    }
+
+    ::selection {
+        background: #F97316;
+        color: #0A0E14;
+    }
+
+    html {
+        scrollbar-color: #64748B transparent;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #64748B;
+        border: 2px solid transparent;
+        background-clip: content-box;
+    }
+
+    .bp-grid {
+        background-image:
+            linear-gradient(to right, var(--grid-strong) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--grid-strong) 1px, transparent 1px),
+            linear-gradient(to right, var(--grid) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+        background-size: 192px 192px, 192px 192px, 48px 48px, 48px 48px;
+    }
+
+    .noise {
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        pointer-events: none;
+        opacity: .05;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+    }
+
+    /* reveal on scroll */
+    .rv {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .2, 1);
+        transition-delay: var(--d, 0s);
+    }
+
+    .rv-in {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* svg blueprint draw */
+    .dw {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: draw 1.2s cubic-bezier(.5, 0, .15, 1) forwards;
+    }
+
+    @keyframes draw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    .sf {
+        opacity: 0;
+        animation: sfIn .7s ease forwards;
+    }
+
+    @keyframes sfIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* ticker */
+    .ticker-track {
+        animation: marquee 30s linear infinite;
+    }
+
+    .ticker:hover .ticker-track {
+        animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* nav */
+    .navlink {
+        position: relative;
+    }
+
+    .navlink::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -6px;
+        height: 2px;
+        background: #F97316;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .navlink:hover::after,
+    .navlink.nav-active::after {
+        transform: scaleX(1);
+    }
+
+    .navlink.nav-active {
+        color: #F97316;
+    }
+
+    /* corner brackets on cards */
+    .brk::before,
+    .brk::after {
+        content: '';
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-color: #F97316;
+        border-style: solid;
+        opacity: 0;
+        transition: opacity .35s ease, transform .35s ease;
+        z-index: 10;
+    }
+
+    .brk::before {
+        top: 8px;
+        left: 8px;
+        border-width: 2px 0 0 2px;
+        transform: translate(6px, 6px);
+    }
+
+    .brk::after {
+        bottom: 8px;
+        right: 8px;
+        border-width: 0 2px 2px 0;
+        transform: translate(-6px, -6px);
+    }
+
+    .brk:hover::before,
+    .brk:hover::after {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    /* slow ken burns */
+    .kb img {
+        animation: kb 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes kb {
+        from {
+            transform: scale(1) translate(0, 0);
+        }
+
+        to {
+            transform: scale(1.09) translate(-1.5%, 1.5%);
+        }
+    }
+
+    /* pulse dot */
+    .pulse-dot {
+        position: relative;
+    }
+
+    .pulse-dot::after {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 9999px;
+        border: 1px solid #22C55E;
+        animation: ping 1.8s cubic-bezier(0, 0, .2, 1) infinite;
+    }
+
+    @keyframes ping {
+
+        75%,
+        100% {
+            transform: scale(1.9);
+            opacity: 0;
+        }
+    }
+
+    /* clip button */
+    .btn-cut {
+        clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+    }
+
+    /* skill bars */
+    .bar-fill {
+        width: 0;
+        transition: width 1.2s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: .01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: .01ms !important;
+            scroll-behavior: auto !important;
+        }
+
+        .dw {
+            animation: none;
+            stroke-dashoffset: 0;
+        }
+
+        .sf {
+            animation: none;
+            opacity: 1;
+        }
+
+        .ticker-track {
+            animation: none;
+        }
+
+        .rv {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
